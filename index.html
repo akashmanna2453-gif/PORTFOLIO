@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash | Ethical Hacker & Security Researcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            black: '#0a0a0f',
+                            dark: '#12121a',
+                            primary: '#00ff41',
+                            secondary: '#008f11',
+                            accent: '#003b00',
+                            gray: '#1a1a2e'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00ff41, 0 0 10px #00ff41, 0 0 15px #00ff41' },
+                            '100%': { boxShadow: '0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41' }
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        'blink-caret': {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: '#00ff41' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0f;
+            color: #e0e0e0;
+        }
+        .glass-panel {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+        .terminal-text {
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .skill-bar-fill {
+            background: linear-gradient(90deg, #008f11 0%, #00ff41 100%);
+        }
+        ::selection {
+            background: #00ff41;
+            color: #0a0a0f;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+   
+    <nav class="fixed w-full z-50 glass-panel border-b border-cyber-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="terminal" class="w-6 h-6 text-cyber-primary"></i>
+                    <span class="font-mono font-bold text-xl text-cyber-primary tracking-tighter">hackwithakash</span>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-cyber-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">_home</a>
+                        <a href="#about" class="hover:text-cyber-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">_about</a>
+                        <a href="#skills" class="hover:text-cyber-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">_skills</a>
+                        <a href="#projects" class="hover:text-cyber-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">_projects</a>
+                        <a href="#contact" class="bg-cyber-primary/10 border border-cyber-primary text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all px-4 py-2 rounded-md text-sm font-mono font-bold">init_contact()</a>
+                    </div>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-cyber-primary p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-cyber-primary/20">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block hover:text-cyber-primary px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="block hover:text-cyber-primary px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills" class="block hover:text-cyber-primary px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="block hover:text-cyber-primary px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="block text-cyber-primary px-3 py-2 rounded-md text-base font-medium">init_contact()</a>
+            </div>
+        </div>
+    </nav>
+    <section id="home" class="relative min-h-screen flex items-center justify-center grid-bg pt-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-black/50 to-cyber-black pointer-events-none"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-cyber-primary/30 mb-8 animate-float">
+                <span class="w-2 h-2 rounded-full bg-cyber-primary animate-pulse"></span>
+                <span class="font-mono text-sm text-cyber-primary">System Online | Available for freelance</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 font-mono">
+                <span class="text-gray-400">&lt;</span>
+                <span class="text-white terminal-text">Akash</span>
+                <span class="text-gray-400">/&gt;</span>
+            </h1>
+
+            <div class="h-16 md:h-20 flex items-center justify-center mb-8">
+                <p class="text-xl md:text-3xl font-mono text-cyber-primary overflow-hidden whitespace-nowrap border-r-4 border-cyber-primary pr-2 animate-typing" id="typewriter">
+                    Ethical Hacker | Security Researcher | Developer
+                </p>
+            </div>
+
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Breaking systems to make them stronger. Specializing in penetration testing, vulnerability assessment, and secure code development.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#projects" class="group relative px-8 py-4 bg-cyber-primary text-cyber-black font-bold rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]">
+                    <span class="relative z-10 flex items-center gap-2 font-mono">
+                        <i data-lucide="folder-open" class="w-5 h-5"></i>
+                        View Projects
+                    </span>
+                </a>
+                <a href="#contact" class="px-8 py-4 border border-cyber-primary/50 text-cyber-primary font-bold rounded-lg hover:bg-cyber-primary/10 transition-all font-mono flex items-center gap-2">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Get in Touch
+                </a>
+            </div>
+
+            <div class="mt-16 flex justify-center gap-6">
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors transform hover:scale-110">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors transform hover:scale-110">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors transform hover:scale-110">
+                    <i data-lucide="twitter" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors transform hover:scale-110">
+                    <i data-lucide="shield" class="w-6 h-6"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-cyber-primary"></i>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-cyber-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyber-primary to-cyber-secondary rounded-lg blur opacity-25"></div>
+                    <div class="relative glass-panel rounded-lg p-8 border border-cyber-primary/20">
+                        <div class="flex items-center gap-2 mb-4 pb-4 border-b border-cyber-primary/20">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 font-mono text-sm text-gray-400">akash@portfolio:~</span>
+                        </div>
+                        <div class="font-mono text-sm space-y-2">
+                            <p class="text-gray-400">$ <span class="text-cyber-primary">whoami</span></p>
+                            <p class="text-white">akash-ethical-hacker</p>
+                            <p class="text-gray-400">$ <span class="text-cyber-primary">cat</span> skills.txt</p>
+                            <p class="text-white">Penetration Testing | Bug Bounty | Secure Coding</p>
+                            <p class="text-gray-400">$ <span class="text-cyber-primary">cat</span> experience.txt</p>
+                            <p class="text-white">5+ years in cybersecurity</p>
+                            <p class="text-gray-400">$ <span class="text-cyber-primary">status</span></p>
+                            <p class="text-cyber-primary">● Currently accepting new challenges</p>
+                            <p class="text-gray-400 animate-pulse">_</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 font-mono">
+                        <span class="text-cyber-primary">#</span> About Me
+                    </h2>
+                    <div class="space-y-4 text-gray-300 leading-relaxed">
+                        <p>
+                            I'm Akash, a passionate cybersecurity professional dedicated to making the digital world safer. With expertise in ethical hacking and penetration testing, I help organizations identify and fix security vulnerabilities before malicious actors can exploit them.
+                        </p>
+                        <p>
+                            My journey began with a curiosity about how systems work, which evolved into a mission to understand how they break—and how to prevent it. I've successfully identified critical vulnerabilities in various platforms and have been acknowledged by several tech companies for responsible disclosure.
+                        </p>
+                        <p>
+                            When I'm not hunting bugs or writing exploits, I'm developing security tools and contributing to open-source security projects. I believe in the power of knowledge sharing and regularly conduct workshops on cybersecurity awareness.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="glass-panel p-4 rounded-lg border border-cyber-primary/20 text-center">
+                            <div class="text-3xl font-bold text-cyber-primary font-mono">50+</div>
+                            <div class="text-sm text-gray-400">Vulnerabilities Found</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg border border-cyber-primary/20 text-center">
+                            <div class="text-3xl font-bold text-cyber-primary font-mono">30+</div>
+                            <div class="text-sm text-gray-400">Happy Clients</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg border border-cyber-primary/20 text-center">
+                            <div class="text-3xl font-bold text-cyber-primary font-mono">5+</div>
+                            <div class="text-sm text-gray-400">Years Experience</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg border border-cyber-primary/20 text-center">
+                            <div class="text-3xl font-bold text-cyber-primary font-mono">100%</div>
+                            <div class="text-sm text-gray-400">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills" class="py-20 bg-cyber-black relative grid-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-mono">
+                    <span class="text-cyber-primary">$</span> Skills & Arsenal
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Tools and technologies I use to break and secure systems</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+             
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">Penetration Testing</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Web App Sec</span>
+                            <span class="text-cyber-primary font-mono">95%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="bug" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">Bug Bounty</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Vulnerability Research</span>
+                            <span class="text-cyber-primary font-mono">90%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="code-2" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">Secure Coding</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Python/Go/JS</span>
+                            <span class="text-cyber-primary font-mono">88%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="network" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">Network Security</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Infrastructure</span>
+                            <span class="text-cyber-primary font-mono">85%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="database" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">OSINT</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Intelligence Gathering</span>
+                            <span class="text-cyber-primary font-mono">92%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-lg border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-105 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-3 rounded-lg bg-cyber-primary/10 text-cyber-primary group-hover:bg-cyber-primary group-hover:text-cyber-black transition-all">
+                            <i data-lucide="lock" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-lg font-mono">Cryptography</h3>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Encryption/Hashing</span>
+                            <span class="text-cyber-primary font-mono">80%</span>
+                        </div>
+                        <div class="w-full bg-cyber-gray rounded-full h-2">
+                            <div class="skill-bar-fill h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mt-12 glass-panel p-8 rounded-lg border border-cyber-primary/20">
+                <h3 class="text-xl font-bold mb-6 font-mono text-center">Favorite Tools & Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Burp Suite</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Nmap</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Metasploit</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Wireshark</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">SQLMap</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Python</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Kali Linux</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Docker</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">Git</span>
+                    <span class="px-4 py-2 rounded-full bg-cyber-gray border border-cyber-primary/30 text-cyber-primary font-mono text-sm hover:bg-cyber-primary hover:text-cyber-black transition-all cursor-default">OWASP ZAP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects" class="py-20 bg-cyber-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-mono">
+                    <span class="text-cyber-primary">~/</span> Projects
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Recent security research and development projects</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="group glass-panel rounded-lg overflow-hidden border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-[1.02]">
+                    <div class="h-48 bg-cyber-gray relative overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/42" alt="Security Tool" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-cyber-primary text-cyber-black text-xs font-bold rounded-full font-mono">TOOL</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono text-white group-hover:text-cyber-primary transition-colors">AutoRecon Pro</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Automated reconnaissance framework for bug bounty hunters. Performs subdomain enumeration, port scanning, and vulnerability detection.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-mono text-cyber-primary/80">Python</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">Bash</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">API</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex-1 text-center py-2 border border-cyber-primary/30 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">View Code</a>
+                            <a href="#" class="flex-1 text-center py-2 bg-cyber-primary/10 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="group glass-panel rounded-lg overflow-hidden border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-[1.02]">
+                    <div class="h-48 bg-cyber-gray relative overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/88" alt="CTF Platform" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-cyber-secondary text-white text-xs font-bold rounded-full font-mono">PLATFORM</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono text-white group-hover:text-cyber-primary transition-colors">CTF Arena</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Capture The Flag platform for learning cybersecurity. Includes web exploitation, cryptography, and reverse engineering challenges.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-mono text-cyber-primary/80">React</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">Node.js</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">Docker</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex-1 text-center py-2 border border-cyber-primary/30 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">View Code</a>
+                            <a href="#" class="flex-1 text-center py-2 bg-cyber-primary/10 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="group glass-panel rounded-lg overflow-hidden border border-cyber-primary/20 hover:border-cyber-primary/50 transition-all hover:transform hover:scale-[1.02]">
+                    <div class="h-48 bg-cyber-gray relative overflow-hidden">
+                        <img src="http://static.photos/technology/640x360/133" alt="Vulnerability Scanner" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity group-hover:scale-110 duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="px-3 py-1 bg-cyber-primary text-cyber-black text-xs font-bold rounded-full font-mono">SCANNER</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono text-white group-hover:text-cyber-primary transition-colors">WebVuln Scanner</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Lightning-fast web vulnerability scanner detecting SQL Injection, XSS, CSRF, and security misconfigurations with detailed reporting.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-mono text-cyber-primary/80">Go</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">Chrome DevTools</span>
+                            <span class="text-xs font-mono text-cyber-primary/80">AI</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" class="flex-1 text-center py-2 border border-cyber-primary/30 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">View Code</a>
+                            <a href="#" class="flex-1 text-center py-2 bg-cyber-primary/10 rounded text-sm font-mono text-cyber-primary hover:bg-cyber-primary hover:text-cyber-black transition-all">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 border border-cyber-primary text-cyber-primary rounded-lg hover:bg-cyber-primary hover:text-cyber-black transition-all font-mono font-bold group">
+                    View All Projects
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="py-20 bg-cyber-black relative grid-bg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-mono">
+                    <span class="text-cyber-primary">$</span> init_contact()
+                </h2>
+                <p class="text-gray-400">Have a security concern or want to collaborate? Let's talk.</p>
+            </div>
+
+            <div class="glass-panel rounded-lg p-8 border border-cyber-primary/20">
+                <form id="contact-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-mono text-cyber-primary mb-2">name:</label>
+                            <input type="text" required class="w-full bg-cyber-dark border border-cyber-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyber-primary focus:ring-1 focus:ring-cyber-primary transition-all font-mono placeholder-gray-600" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-mono text-cyber-primary mb-2">email:</label>
+                            <input type="email" required class="w-full bg-cyber-dark border border-cyber-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyber-primary focus:ring-1 focus:ring-cyber-primary transition-all font-mono placeholder-gray-600" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-mono text-cyber-primary mb-2">subject:</label>
+                        <select class="w-full bg-cyber-dark border border-cyber-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyber-primary focus:ring-1 focus:ring-cyber-primary transition-all font-mono">
+                            <option value="security_audit">Security Audit Request</option>
+                            <option value="bug_bounty">Bug Bounty Program</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="collaboration">Collaboration</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-mono text-cyber-primary mb-2">message:</label>
+                        <textarea required rows="5" class="w-full bg-cyber-dark border border-cyber-primary/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyber-primary focus:ring-1 focus:ring-cyber-primary transition-all font-mono placeholder-gray-600 resize-none" placeholder="Describe your security requirements or questions..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-cyber-primary text-cyber-black font-bold py-4 rounded-lg hover:shadow-[0_0_30px_rgba(0,255,65,0.3)] transition-all font-mono flex items-center justify-center gap-2 group">
+                        <span>send_message()</span>
+                        <i data-lucide="send" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </form>
+
+                <div id="form-success" class="hidden mt-4 p-4 bg-cyber-primary/20 border border-cyber-primary rounded-lg text-center">
+                    <p class="text-cyber-primary font-mono">Message sent successfully! I'll get back to you soon.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 flex justify-center gap-8">
+                <a href="mailto:contact@hackwithakash.com" class="flex flex-col items-center gap-2 text-gray-400 hover:text-cyber-primary transition-colors group">
+                    <div class="w-12 h-12 rounded-full glass-panel border border-cyber-primary/30 flex items-center justify-center group-hover:border-cyber-primary transition-all">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-mono">Email</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-2 text-gray-400 hover:text-cyber-primary transition-colors group">
+                    <div class="w-12 h-12 rounded-full glass-panel border border-cyber-primary/30 flex items-center justify-center group-hover:border-cyber-primary transition-all">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-mono">GitHub</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-2 text-gray-400 hover:text-cyber-primary transition-colors group">
+                    <div class="w-12 h-12 rounded-full glass-panel border border-cyber-primary/30 flex items-center justify-center group-hover:border-cyber-primary transition-all">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-mono">LinkedIn</span>
+                </a>
+                <a href="#" class="flex flex-col items-center gap-2 text-gray-400 hover:text-cyber-primary transition-colors group">
+                    <div class="w-12 h-12 rounded-full glass-panel border border-cyber-primary/30 flex items-center justify-center group-hover:border-cyber-primary transition-all">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-sm font-mono">Twitter</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="bg-cyber-dark border-t border-cyber-primary/20 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="terminal" class="w-5 h-5 text-cyber-primary"></i>
+                <span class="font-mono font-bold text-cyber-primary">hackwithakash</span>
+            </div>
+            <p class="text-gray-500 text-sm font-mono">© 2026 Akash. All systems secured.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-cyber-primary transition-colors">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        lucide.createIcons();
+
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+ 
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+
+        const contactForm = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="animate-pulse">sending...</span>';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                contactForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                formSuccess.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+
+
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('shadow-lg');
+                nav.classList.add('shadow-cyber-primary/10');
+            } else {
+                nav.classList.remove('shadow-lg');
+                nav.classList.remove('shadow-cyber-primary/10');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        const texts = [
+            "Ethical Hacker | Security Researcher | Developer",
+            "Penetration Tester | Bug Bounty Hunter | CTF Player",
+            "Security Consultant | Code Reviewer | Open Source Contributor"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter');
+
+        function typeEffect() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000; 
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500; // 
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+   
+        window.addEventListener('load', () => {
+            setTimeout(typeEffect, 1000);
+        });
+
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        
+        document.querySelectorAll('.glass-panel').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+       
+        const style = document.createElement('style');
+        style.textContent = `
+            .animate-fade-in {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
